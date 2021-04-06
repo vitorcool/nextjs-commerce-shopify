@@ -33,12 +33,15 @@ const ProductView: FC<Props> = ({ product }) => {
   // select first available variant
   const tmpV = product.options && product.options.length > 0 && product.options[0].values.length > 0
               ? product.options[0] : undefined;
-  const [choices, setChoices] = useState<SelectedOptions>(Object.assign({
+
+  const tmpV2:any = Object.assign({
     size: null,
     color: null,
+    title: null,
   },
     tmpV ? {[tmpV.displayName.toLowerCase()]: tmpV.values[0].label.toLowerCase(),} :{}
-  ))
+  )
+  const [choices, setChoices] = useState<SelectedOptions>(tmpV2)
 
 
   // Select the correct variant based on choices

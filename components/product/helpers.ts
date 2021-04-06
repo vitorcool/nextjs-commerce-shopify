@@ -3,10 +3,11 @@ import type { Product } from '@commerce/types'
 export type SelectedOptions = {
   size: string | null
   color: string | null
+  title: string | null
 }
 
 export function getVariant(product: Product, opts2: SelectedOptions) {
-  const opts = {};
+  const opts:any = {};
   // exclude opts with null and undefined value
   Object.entries(opts2).forEach( ([key,value]) => {
     if(value !== undefined && value !== null){
