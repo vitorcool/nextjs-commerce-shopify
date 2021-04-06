@@ -1,4 +1,4 @@
-import { FC } from 'react'
+import React, { FC } from 'react'
 import cn from 'classnames'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
@@ -16,6 +16,33 @@ interface Props {
 }
 
 const LEGAL_PAGES = ['terms-of-use', 'shipping-returns', 'privacy-policy']
+
+const Copyright=() => {
+  return (<div></div>);
+  return (
+    <div className="py-12 flex flex-col md:flex-row justify-between items-center space-y-4">
+      <div>
+        <span>&copy; 2020 ACME, Inc. All rights reserved.</span>
+      </div>
+      <div className="flex items-center text-primary">
+        <span className="text-primary">Crafted by</span>
+        <a
+          rel="noopener"
+          href="https://vercel.com"
+          aria-label="Vercel.com Link"
+          target="_blank"
+          className="text-primary"
+        >
+          <Vercel
+            className="inline-block h-6 ml-4 text-primary"
+            alt="Vercel.com Logo"
+          />
+        </a>
+      </div>
+    </div>
+  )
+}
+
 
 const Footer: FC<Props> = ({ className, pages }) => {
   const { sitePages, legalPages } = usePages(pages)
@@ -95,26 +122,7 @@ const Footer: FC<Props> = ({ className, pages }) => {
             </div>
           </div>
         </div>
-        <div className="py-12 flex flex-col md:flex-row justify-between items-center space-y-4">
-          <div>
-            <span>&copy; 2020 ACME, Inc. All rights reserved.</span>
-          </div>
-          <div className="flex items-center text-primary">
-            <span className="text-primary">Crafted by</span>
-            <a
-              rel="noopener"
-              href="https://vercel.com"
-              aria-label="Vercel.com Link"
-              target="_blank"
-              className="text-primary"
-            >
-              <Vercel
-                className="inline-block h-6 ml-4 text-primary"
-                alt="Vercel.com Logo"
-              />
-            </a>
-          </div>
-        </div>
+        <Copyright/>
       </Container>
     </footer>
   )

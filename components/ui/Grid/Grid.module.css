@@ -1,6 +1,8 @@
 .root {
   --row-height: calc(100vh - 88px);
   @apply grid grid-cols-1 gap-0;
+  grid-gap: 12px;
+  padding: 0 12px;
   min-height: var(--row-height);
 
   @screen lg {
@@ -47,7 +49,7 @@
   &.filled {
     & > *:nth-child(6n + 1),
     & > *:nth-child(6n + 5) {
-      @apply bg-violet;
+      @apply bg-x-1;
     }
 
     & > *:nth-child(6n + 5) {
@@ -81,7 +83,7 @@
     }
 
     & > *:nth-child(6n + 4) {
-      @apply bg-violet;
+      @apply bg-x-1;
     }
 
     & > *:nth-child(6n + 3) {
@@ -107,7 +109,7 @@
 
   &.filled {
     & > *:nth-child(12n + 1) {
-      @apply bg-violet;
+      @apply bg-x-1;
       height: var(--row-height);
     }
 
@@ -135,7 +137,7 @@
 
   &.filled {
     & > *:nth-child(12n + 2) {
-      @apply bg-violet;
+      @apply bg-x-1;
     }
 
     & > *:nth-child(12n + 7) {

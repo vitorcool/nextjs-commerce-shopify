@@ -18,7 +18,7 @@ export async function getStaticProps({
 export default function Blog() {
   return (
     <div className="pb-20">
-      <div className="text-center pt-40 pb-56 bg-violet">
+      <div className="text-center pt-40 pb-56 bg-x-1">
         <Container>
           <h2 className="text-4xl tracking-tight leading-10 font-extrabold text-white sm:text-5xl sm:leading-none md:text-6xl">
             Welcome to Acme, the simplest way to start publishing with Next.js

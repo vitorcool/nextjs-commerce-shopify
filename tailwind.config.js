@@ -44,6 +44,12 @@ module.exports = {
         blue: 'var(--blue)',
         green: 'var(--green)',
         red: 'var(--red)',
+        'x-1': '#416e00',
+        'x-2': '#5a8800',
+        'x-3': '#71a100',
+        'x-4': '#8abb00',
+        'x-5': '#a3d500',
+        'x-6': '#bef200',
       },
       textColor: {
         base: 'var(--text-base)',
