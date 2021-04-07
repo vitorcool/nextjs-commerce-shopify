@@ -1,4 +1,3 @@
-import type { GetStaticPropsContext } from 'next'
 import { getConfig } from '@framework/api'
 import getAllPages from '@framework/common/get-all-pages'
 import useCart from '@framework/cart/use-cart'
@@ -7,6 +6,14 @@ import { Layout } from '@components/common'
 import { Button, Text } from '@components/ui'
 import { Bag, Cross, Check, MapPin, CreditCard } from '@components/icons'
 import { CartItem } from '@components/cart'
+// sugestoes
+import { ProductCard } from '@components/product'
+import getAllProducts from '@framework/product/get-all-products'
+import type { GetStaticPropsContext, InferGetStaticPropsType } from 'next'
+
+
+
+
 
 export async function getStaticProps({
   preview,
@@ -14,12 +21,22 @@ export async function getStaticProps({
 }: GetStaticPropsContext) {
   const config = getConfig({ locale })
   const { pages } = await getAllPages({ config, preview })
+
+  const { products } = await getAllProducts({
+    variables: { first: 12 },
+    config,
+    preview,
+  })
+
   return {
-    props: { pages },
+    props: {
+      products,
+      pages,
+    }
   }
 }
 
-export default function Cart() {
+export default function Cart({products}: InferGetStaticPropsType<typeof getStaticProps>) {
   const error = null
   const success = null
   const { data, isLoading, isEmpty } = useCart()
@@ -90,10 +107,15 @@ export default function Cart() {
                 just for you
               </Text>
               <div className="flex py-6 space-x-6">
-                {[1, 2, 3, 4, 5, 6].map((x) => (
-                  <div
-                    key={x}
-                    className="border border-accents-3 w-full h-24 bg-accents-2 bg-opacity-50 transform cursor-pointer hover:scale-110 duration-75"
+                {products.slice(0, 4).map((product, i) => (
+                  <ProductCard
+                    variant="slim"
+                    key={product.id}
+                    product={product}
+                    imgProps={{
+                      width: 150,
+                      height: 150,
+                    }}
                   />
                 ))}
               </div>
