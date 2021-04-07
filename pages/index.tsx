@@ -1,6 +1,9 @@
 import { Layout } from '@components/common'
 import { Grid, Marquee, Hero } from '@components/ui'
 import { ProductCard } from '@components/product'
+import { KeenSlider } from '@components/common'
+import Image, { ImageProps } from 'next/image'
+
 // import HomeAllProductsGrid from '@components/common/HomeAllProductsGrid'
 import type { GetStaticPropsContext, InferGetStaticPropsType } from 'next'
 
@@ -8,6 +11,7 @@ import { getConfig } from '@framework/api'
 import getAllProducts from '@framework/product/get-all-products'
 import getSiteInfo from '@framework/common/get-site-info'
 import getAllPages from '@framework/common/get-all-pages'
+
 
 export async function getStaticProps({
   preview,
@@ -42,6 +46,28 @@ export default function Home({
 }: InferGetStaticPropsType<typeof getStaticProps>) {
   return (
     <>
+      <KeenSlider
+        slidesPerView={2}
+        loop={true}
+        positionIndicator={true}
+      >
+        {[1,2,3,4].map( i =>
+          <div
+            key={"keenslider-item-"+i}
+          >
+            <Image
+              layout='responsive'
+              className={"image-slider-content_"+i}
+              width={1024}
+              height={400}
+              src={"/images/img"+i+".jpg"}
+              alt={"Forno Pizza"}
+              unoptimized
+            />
+          </div>
+        )}
+
+      </KeenSlider>
       <Grid>
         {products.slice(0, 6).map((product, i) => (
           <ProductCard

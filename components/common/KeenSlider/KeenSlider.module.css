@@ -1,0 +1,55 @@
+.root {
+    @apply relative w-full h-full;
+    overflow-y: hidden;
+    min-height: 62px;
+    padding: 12px;
+}
+
+.leftControl,
+.rightControl {
+    @apply absolute top-1/2 transform -translate-y-1/2  z-20 w-16 h-16 flex items-center justify-center bg-hover-1 rounded-full;
+}
+
+.leftControl {
+    @apply bg-cover left-10;
+    background-image: url('/cursor-left.png');
+}
+
+.rightControl {
+    @apply bg-cover right-10;
+    background-image: url('/cursor-right.png');
+}
+.leftControl:hover,
+.rightControl:hover {
+    @apply bg-hover-2 outline-none shadow-magical;
+}
+
+.control {
+    @apply opacity-0 transition duration-150;
+}
+
+.root:hover .control {
+    @apply opacity-100;
+}
+
+.positionIndicatorsContainer {
+    /*@apply hidden;*/
+    display: inline-flex;
+    position: absolute;
+    bottom: 15%;
+    margin: 0 calc( 50% );
+    transform: translateX(-50%);
+}
+
+.positionIndicator {
+  border: 0;
+  background-color:black;
+  width: 40px;
+  height: 10px;
+  border-radius: 8px;
+  margin: 0 3px;
+}
+
+.positionIndicatorActive {
+  background-color:white;
+}
