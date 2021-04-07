@@ -68,7 +68,8 @@ export default function Home({
         )}
 
       </KeenSlider>
-      <Grid>
+      <Grid layout="D"
+      >
         {products.slice(0, 6).map((product, i) => (
           <ProductCard
             key={product.id}
@@ -80,7 +81,7 @@ export default function Home({
           />
         ))}
       </Grid>
-      <Marquee variant="secondary">
+      <Marquee variant="primary">
         {products.slice(0, 3).map((product, i) => (
           <ProductCard
             key={product.id}

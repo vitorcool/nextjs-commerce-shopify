@@ -59,7 +59,7 @@ module.exports = {
       boxShadow: {
         'outline-normal': '0 0 0 2px var(--accents-2)',
         magical:
-          'rgba(0, 0, 0, 0.02) 0px 30px 30px, rgba(0, 0, 0, 0.03) 0px 0px 8px, rgba(0, 0, 0, 0.05) 0px 1px 0px',
+          'rgb(0 0 0 / 40%) 5px 15px 30px, rgb(0 0 0 / 0%) 0px 0px 8px, rgb(0 0 0 / 0%) 0px 1px 0px',
       },
       lineHeight: {
         'extra-loose': '2.2',

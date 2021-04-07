@@ -35,13 +35,13 @@
   }
 
   & .name {
-    @apply px-6 py-2 bg-primary text-primary font-bold;
+    @apply px-6 py-2 bg-primary text-primary font-bold  shadow-magical;
     font-size: 2rem;
     letter-spacing: 0.4px;
   }
 
   & .price {
-    @apply px-6 py-2 pb-4 bg-primary text-primary font-bold inline-block tracking-wide;
+    @apply px-6 py-2 pb-4 bg-primary text-primary font-bold inline-block tracking-wide shadow-magical;
   }
 
   @screen lg {

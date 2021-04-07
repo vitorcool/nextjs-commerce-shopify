@@ -14,9 +14,9 @@
 }
 
 .primary {
-  @apply bg-white;
+  @apply bg-primary text-primary;
 }
 
 .secondary {
-  @apply bg-black;
+  @apply bg-secondary text-secondary;
 }
