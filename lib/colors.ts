@@ -103,7 +103,7 @@ const colorMap: Record<string, string> = {
   honeydew: '#F0FFF0',
   hotpink: '#FF69B4',
   indianred: '#CD5C5C',
-  indigo: '#4B0082',
+  indigo: "#000000",//'#4B0082',
   ivory: '#FFFFF0',
   khaki: '#F0E68C',
   lavender: '#E6E6FA',
@@ -191,6 +191,7 @@ const colorMap: Record<string, string> = {
   whitesmoke: '#F5F5F5',
   yellow: '#FFFF00',
   yellowgreen: '#9ACD32',
+
 }
 
 export function isDark(color: string = ''): boolean {

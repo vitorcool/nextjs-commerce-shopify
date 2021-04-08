@@ -1,3 +1,5 @@
+
+
 module.exports = {
   future: {
     purgeLayersByDefault: true,
@@ -20,6 +22,9 @@ module.exports = {
         '8xl': '1920px',
       },
       colors: {
+        transparent: 'transparent',
+        current: 'currentColor',
+
         primary: 'var(--primary)',
         'primary-2': 'var(--primary-2)',
         secondary: 'var(--secondary)',
@@ -37,19 +42,19 @@ module.exports = {
         'accents-7': 'var(--accents-7)',
         'accents-8': 'var(--accents-8)',
         'accents-9': 'var(--accents-9)',
-        violet: 'var(--violet)',
+        'violet-0': 'var(--violet)',
         'violet-light': 'var(--violet-light)',
-        pink: 'var(--pink)',
-        cyan: 'var(--cyan)',
-        blue: 'var(--blue)',
-        green: 'var(--green)',
-        red: 'var(--red)',
-        'x-1': '#416e00',
-        'x-2': '#5a8800',
-        'x-3': '#71a100',
-        'x-4': '#8abb00',
-        'x-5': '#a3d500',
-        'x-6': '#bef200',
+        'pink-0': 'var(--pink)',
+        'cyan-0': 'var(--cyan)',
+        'blue-0': 'var(--blue)',
+        'red-0': 'var(--red)',
+        'green-0': 'var(--green)',
+        'x-1': 'var(--x-1)',
+        'x-2': 'var(--x-2)',
+        'x-3': 'var(--x-3)',
+        'x-4': 'var(--x-4)',
+        'x-5': 'var(--x-5)',
+        'x-6': 'var(--x-6)',
       },
       textColor: {
         base: 'var(--text-base)',
@@ -59,7 +64,7 @@ module.exports = {
       boxShadow: {
         'outline-normal': '0 0 0 2px var(--accents-2)',
         magical:
-          'rgb(0 0 0 / 40%) 5px 15px 30px, rgb(0 0 0 / 0%) 0px 0px 8px, rgb(0 0 0 / 0%) 0px 1px 0px',
+          'var(--magical-shadow)',
       },
       lineHeight: {
         'extra-loose': '2.2',

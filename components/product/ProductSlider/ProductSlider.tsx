@@ -11,6 +11,30 @@ import cn from 'classnames'
 
 import s from './ProductSlider.module.css'
 
+interface ButtonsProps {
+  children: any
+  slider: any
+}
+
+
+const Buttons: FC<ButtonsProps> = ({slider, children}) => {
+  const ct = React.Children.count(children)
+  return ct>1?(
+    <>
+      <button
+        className={cn(s.leftControl, s.control)}
+        onClick={slider?.prev}
+        aria-label="Previous Product Image"
+      />
+      <button
+        className={cn(s.rightControl, s.control)}
+        onClick={slider?.next}
+        aria-label="Next Product Image"
+      />
+    </>
+  ):<></>
+}
+
 const ProductSlider: FC = ({ children }) => {
   const [currentSlide, setCurrentSlide] = useState(0)
   const [isMounted, setIsMounted] = useState(false)
@@ -24,6 +48,9 @@ const ProductSlider: FC = ({ children }) => {
       setCurrentSlide(s.details().relativeSlide)
     },
   })
+
+
+
 
   // Stop the history navigation gesture on touch devices
   useEffect(() => {
@@ -61,16 +88,10 @@ const ProductSlider: FC = ({ children }) => {
 
   return (
     <div className={s.root} ref={sliderContainerRef}>
-      <button
-        className={cn(s.leftControl, s.control)}
-        onClick={slider?.prev}
-        aria-label="Previous Product Image"
-      />
-      <button
-        className={cn(s.rightControl, s.control)}
-        onClick={slider?.next}
-        aria-label="Next Product Image"
-      />
+      <Buttons
+        slider={slider}
+        children={children}
+      ></Buttons>
       <div
         ref={ref}
         className="keen-slider h-full transition-opacity duration-150"

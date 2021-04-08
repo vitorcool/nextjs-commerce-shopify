@@ -35,19 +35,19 @@
   }
 
   & .name {
-    @apply px-6 py-2 bg-primary text-primary font-bold  shadow-magical;
+    @apply px-6 py-2 bg-primary text-primary font-bold;
     font-size: 2rem;
     letter-spacing: 0.4px;
   }
 
   & .price {
-    @apply px-6 py-2 pb-4 bg-primary text-primary font-bold inline-block tracking-wide shadow-magical;
+    @apply px-6 py-2 pb-4 bg-primary text-primary hover:bg-opacity-100 font-bold inline-block tracking-wide ;
   }
 
   @screen lg {
     & .name,
     & .price {
-      @apply bg-violet-light text-white;
+   /*   @apply bg-violet-light text-white; */
     }
   }
 }

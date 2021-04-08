@@ -9,13 +9,13 @@
 
   &:nth-child(3n + 2) {
     & .productBg {
-      @apply bg-pink;
+      @apply bg-pink-0;
     }
   }
 
   &:nth-child(3n + 3) {
     & .productBg {
-      @apply bg-blue;
+      @apply bg-blue-0;
     }
   }
 }

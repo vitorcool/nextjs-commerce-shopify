@@ -1,7 +1,6 @@
 import { Layout } from '@components/common'
-import { Grid, Marquee, Hero } from '@components/ui'
+import { Grid, Marquee, Hero, KeenSlider } from '@components/ui'
 import { ProductCard } from '@components/product'
-import { KeenSlider } from '@components/common'
 import Image, { ImageProps } from 'next/image'
 
 // import HomeAllProductsGrid from '@components/common/HomeAllProductsGrid'
@@ -50,6 +49,7 @@ export default function Home({
         slidesPerView={2}
         loop={true}
         positionIndicator={true}
+        buttons={true}
       >
         {[1,2,3,4].map( i =>
           <div

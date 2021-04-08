@@ -10,18 +10,46 @@ import React, {
 import cn from 'classnames';
 import css from './KeenSlider.module.css';
 
+
+interface ButtonsProps {
+  disable: boolean
+  slider: any
+}
+
+
+const Buttons: FC<ButtonsProps> = ({slider, disable}) => {
+  return !disable?(
+    <>
+      <button
+        className={cn(css.leftControl, css.control)}
+        onClick={slider?.prev}
+        aria-label="Previous"
+      />
+      <button
+        className={cn(css.rightControl, css.control)}
+        onClick={slider?.next}
+        aria-label="Next"
+      />
+    </>
+  ):<></>
+}
+
 interface Props {
   children?: object
   loop?: boolean
   slidesPerView?: number
   positionIndicator?: boolean
   slideInterval?: number
+  buttons?:boolean
 }
 
-const KeenSlider: FC<Props> = ({ children, loop, slidesPerView, positionIndicator, slideInterval }) => {
+const KeenSlider: FC<Props> = ({ children, loop, slidesPerView, positionIndicator, slideInterval, buttons }) => {
     const [currentSlide, setCurrentSlide] = useState(0);
     const [isMounted, setIsMounted] = useState(false);
     const sliderContainerRef = useRef<HTMLDivElement>(null);
+    const childrenCount = React.Children.count(children);
+    buttons = (typeof buttons == "undefined" ? true : buttons);
+
 
     const [ref, slider] = useKeenSlider<HTMLDivElement>({
         loop: loop || true,
@@ -72,15 +100,9 @@ const KeenSlider: FC<Props> = ({ children, loop, slidesPerView, positionIndicato
     }, [currentSlide]);
     return (
         <div className={css.root} ref={sliderContainerRef}>
-            <button
-                className={cn(css.leftControl, css.control)}
-                onClick={slider?.prev}
-                aria-label='Previous'
-            />
-            <button
-                className={cn(css.rightControl, css.control)}
-                onClick={slider?.next}
-                aria-label='Next'
+            <Buttons
+              slider={slider}
+              disable={childrenCount<2 || !buttons}
             />
             <div
                 ref={ref}

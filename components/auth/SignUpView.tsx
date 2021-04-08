@@ -70,7 +70,7 @@ const SignUpView: FC<Props> = () => {
       </div>
       <div className="flex flex-col space-y-4">
         {message && (
-          <div className="text-red border border-red p-3">{message}</div>
+          <div className="text-red-0 border border-red-0 p-3">{message}</div>
         )}
         <Input placeholder="First Name" onChange={setFirstName} />
         <Input placeholder="Last Name" onChange={setLastName} />

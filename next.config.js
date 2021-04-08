@@ -10,6 +10,9 @@ const isShopify = provider === 'shopify'
 
 module.exports = withCommerceConfig({
   commerce,
+  future: {
+    webpack5: true,
+  },
   i18n: {
     locales: ['en-US', 'es'],
     defaultLocale: 'en-US',
