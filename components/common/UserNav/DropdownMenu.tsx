@@ -8,7 +8,10 @@ import { Avatar } from '@components/common'
 import { Moon, Sun } from '@components/icons'
 import { useUI } from '@components/ui/context'
 import ClickOutside from '@lib/click-outside'
+
+import useCustomer from '@framework/customer/use-customer'
 import useLogout from '@framework/auth/use-logout'
+import { signOut, useSession } from 'next-auth/client'
 
 import {
   disableBodyScroll,
@@ -42,6 +45,9 @@ const DropdownMenu: FC<DropdownMenuProps> = ({ open = false }) => {
   const [display, setDisplay] = useState(false)
   const { closeSidebarIfPresent } = useUI()
   const ref = useRef() as React.MutableRefObject<HTMLUListElement>
+
+  const [session] = useSession();
+  const { data: customer } = useCustomer()
 
   useEffect(() => {
     if (ref.current) {
@@ -110,7 +116,10 @@ const DropdownMenu: FC<DropdownMenuProps> = ({ open = false }) => {
             <li>
               <a
                 className={cn(s.link, 'border-t border-accents-2 mt-4')}
-                onClick={() => logout()}
+                onClick={() => {
+                  if(customer) logout()
+                  if(session) signOut();
+                }}
               >
                 Logout
               </a>

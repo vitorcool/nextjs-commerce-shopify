@@ -3,6 +3,8 @@ import { Logo, Button, Input } from '@components/ui'
 import useLogin from '@framework/auth/use-login'
 import { useUI } from '@components/ui/context'
 import { validate } from 'email-validator'
+// oAthProviders
+import AuthProvidersView from './AuthProvidersView'
 
 interface Props {}
 
@@ -15,6 +17,8 @@ const LoginView: FC<Props> = () => {
   const [dirty, setDirty] = useState(false)
   const [disabled, setDisabled] = useState(false)
   const { setModalView, closeModal } = useUI()
+
+
 
   const login = useLogin()
 
@@ -56,48 +60,51 @@ const LoginView: FC<Props> = () => {
   }, [handleValidation])
 
   return (
-    <form
-      onSubmit={handleLogin}
-      className="w-80 flex flex-col justify-between p-3"
-    >
+    <>
       <div className="flex justify-center pb-12 ">
         <Logo width="64px" height="64px" />
       </div>
-      <div className="flex flex-col space-y-3">
-        {message && (
-          <div className="text-red-0 border border-red-0 p-3">
-            {message}. Did you {` `}
+      <AuthProvidersView/>
+      <form
+        onSubmit={handleLogin}
+        className="w-80 flex flex-col justify-between p-3"
+      >
+        <div className="flex flex-col space-y-3">
+          {message && (
+            <div className="text-red-0 border border-red-0 p-3">
+              {message}. Did you {` `}
+              <a
+                className="text-accent-9 inline font-bold hover:underline cursor-pointer"
+                onClick={() => setModalView('FORGOT_VIEW')}
+              >
+                forgot your password?
+              </a>
+            </div>
+          )}
+          <Input type="email" placeholder="Email" onChange={setEmail} />
+          <Input type="password" placeholder="Password" onChange={setPassword} />
+
+          <Button
+            variant="slim"
+            type="submit"
+            loading={loading}
+            disabled={disabled}
+          >
+            Log In
+          </Button>
+          <div className="pt-1 text-center text-sm">
+            <span className="text-accents-7">Don't have an account?</span>
+            {` `}
             <a
-              className="text-accent-9 inline font-bold hover:underline cursor-pointer"
-              onClick={() => setModalView('FORGOT_VIEW')}
+              className="text-accent-9 font-bold hover:underline cursor-pointer"
+              onClick={() => setModalView('SIGNUP_VIEW')}
             >
-              forgot your password?
+              Sign Up
             </a>
           </div>
-        )}
-        <Input type="email" placeholder="Email" onChange={setEmail} />
-        <Input type="password" placeholder="Password" onChange={setPassword} />
-
-        <Button
-          variant="slim"
-          type="submit"
-          loading={loading}
-          disabled={disabled}
-        >
-          Log In
-        </Button>
-        <div className="pt-1 text-center text-sm">
-          <span className="text-accents-7">Don't have an account?</span>
-          {` `}
-          <a
-            className="text-accent-9 font-bold hover:underline cursor-pointer"
-            onClick={() => setModalView('SIGNUP_VIEW')}
-          >
-            Sign Up
-          </a>
         </div>
-      </div>
-    </form>
+      </form>
+    </>
   )
 }
 

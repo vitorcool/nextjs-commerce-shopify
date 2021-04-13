@@ -12,6 +12,8 @@ import CartSidebarView from '@components/cart/CartSidebarView'
 import LoginView from '@components/auth/LoginView'
 import { CommerceProvider } from '@framework'
 import type { Page } from '@framework/common/get-all-pages'
+import { Provider } from 'next-auth/client'
+import { AuthState } from '@components/common'
 
 const Loading = () => (
   <div className="w-80 h-80 flex items-center text-center justify-center p-3">
@@ -42,7 +44,8 @@ const FeatureBar = dynamic(
 interface Props {
   pageProps: {
     pages?: Page[]
-    commerceFeatures: Record<string, boolean>
+    commerceFeatures: Record<string, boolean>,
+    session: any,
   }
 }
 
@@ -60,33 +63,41 @@ const Layout: FC<Props> = ({
   const { acceptedCookies, onAcceptCookies } = useAcceptCookies()
   const { locale = 'en-US' } = useRouter()
   return (
-    <CommerceProvider locale={locale}>
-      <div className={cn(s.root)}>
-        <Navbar />
-        <main className="fit">{children}</main>
-        <Footer pages={pageProps.pages} />
+    <Provider
+          options={{
+            clientMaxAge: 0,
+            keepAlive: 0
+          }}
+          session={pageProps.session} >
+      <CommerceProvider locale={locale}>
+        {/* <AuthState/> */}
+        <div className={cn(s.root)}>
+          <Navbar />
+          <main className="fit">{children}</main>
+          <Footer pages={pageProps.pages} />
 
-        <Modal open={displayModal} onClose={closeModal}>
-          {modalView === 'LOGIN_VIEW' && <LoginView />}
-          {modalView === 'SIGNUP_VIEW' && <SignUpView />}
-          {modalView === 'FORGOT_VIEW' && <ForgotPassword />}
-        </Modal>
+          <Modal open={displayModal} onClose={closeModal}>
+            {modalView === 'LOGIN_VIEW' && <LoginView />}
+            {modalView === 'SIGNUP_VIEW' && <SignUpView />}
+            {modalView === 'FORGOT_VIEW' && <ForgotPassword />}
+          </Modal>
 
-        <Sidebar open={displaySidebar} onClose={closeSidebar}>
-          <CartSidebarView />
-        </Sidebar>
+          <Sidebar open={displaySidebar} onClose={closeSidebar}>
+            <CartSidebarView />
+          </Sidebar>
 
-        <FeatureBar
-          title="This site uses cookies to improve your experience. By clicking, you agree to our Privacy Policy."
-          hide={acceptedCookies}
-          action={
-            <Button className="mx-5" onClick={() => onAcceptCookies()}>
-              Accept cookies
-            </Button>
-          }
-        />
-      </div>
-    </CommerceProvider>
+          <FeatureBar
+            title="This site uses cookies to improve your experience. By clicking, you agree to our Privacy Policy."
+            hide={acceptedCookies}
+            action={
+              <Button className="mx-5" onClick={() => onAcceptCookies()}>
+                Accept cookies
+              </Button>
+            }
+          />
+        </div>
+      </CommerceProvider>
+    </Provider>
   )
 }
 

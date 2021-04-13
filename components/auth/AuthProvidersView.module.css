@@ -1,0 +1,22 @@
+.signin {
+  @apply flex justify-evenly content-around;
+  flex-flow: column;
+  min-height: 150px;  
+}
+
+.provider {
+
+  align-self: center;
+}
+
+.svg{
+    background-size: 2em;
+    background-repeat: no-repeat;
+    padding: .6em 3em;
+    background-position-y: .3em;
+    background-position-x: .3em;
+}
+
+.error{
+  @apply bg-red-600 text-gray-300;
+}

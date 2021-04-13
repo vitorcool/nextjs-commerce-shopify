@@ -10,6 +10,8 @@ import { useUI } from '@components/ui/context'
 import DropdownMenu from './DropdownMenu'
 import s from './UserNav.module.css'
 
+import { useSession } from 'next-auth/client'
+
 interface Props {
   className?: string
 }
@@ -21,6 +23,7 @@ const UserNav: FC<Props> = ({ className }) => {
   const { data: customer } = useCustomer()
   const { toggleSidebar, closeSidebarIfPresent, openModal } = useUI()
   const itemsCount = data?.lineItems.reduce(countItem, 0) ?? 0
+  const [ session ] = useSession()
 
   return (
     <nav className={cn(s.root, className)}>
@@ -40,9 +43,10 @@ const UserNav: FC<Props> = ({ className }) => {
             </li>
           )}
           <li className={s.item}>
-            {customer ? (
+            {(customer || session) && (
               <DropdownMenu />
-            ) : (
+            )}
+            {(!customer && !session) && (
               <button
                 className={s.avatarButton}
                 aria-label="Menu"

@@ -1,5 +1,6 @@
 import '@assets/main.css'
 import '@assets/chrome-bug.css'
+import '@assets/svg.css'
 import 'keen-slider/keen-slider.min.css'
 
 import { FC, useEffect } from 'react'
