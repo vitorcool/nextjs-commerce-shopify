@@ -2,42 +2,44 @@ import NextAuth from "next-auth"
 import Providers from "next-auth/providers"
 // For more information on each option (and a full list of options) go to
 // https://next-auth.js.org/configuration/options
+
+const e = process.env
 export default NextAuth({
   // https://next-auth.js.org/configuration/providers
   providers: [
-/*     process.env.EMAIL_SERVER===""?undefined: Providers.Email({
-      server: process.env.EMAIL_SERVER,
-      from: process.env.EMAIL_FROM,
+/*     e.EMAIL_SERVER===""?undefined: Providers.Email({
+      server: e.EMAIL_SERVER,
+      from: e.EMAIL_FROM,
     }), */
-    process.env.APPLE_ID===""?undefined:Providers.Apple({
-      clientId: process.env.APPLE_ID,
+    !e.APPLE_ID || e.APPLE_ID===""?undefined:Providers.Apple({
+      clientId: e.APPLE_ID,
       clientSecret: {
-        appleId: process.env.APPLE_ID,
-        teamId: process.env.APPLE_TEAM_ID,
-        privateKey: process.env.APPLE_PRIVATE_KEY,
-        keyId: process.env.APPLE_KEY_ID,
+        appleId: e.APPLE_ID,
+        teamId: e.APPLE_TEAM_ID,
+        privateKey: e.APPLE_PRIVATE_KEY,
+        keyId: e.APPLE_KEY_ID,
       },
     }),
-    process.env.AUTH0_ID===""?undefined:Providers.Auth0({
-      clientId: process.env.AUTH0_ID,
-      clientSecret: process.env.AUTH0_SECRET,
-      domain: process.env.AUTH0_DOMAIN,
+    !e.AUTH0_ID || e.AUTH0_ID===""?undefined:Providers.Auth0({
+      clientId: e.AUTH0_ID,
+      clientSecret: e.AUTH0_SECRET,
+      domain: e.AUTH0_DOMAIN,
     }),
-    process.env.FACEBOOK_ID===""?undefined:Providers.Facebook({
-      clientId: process.env.FACEBOOK_ID,
-      clientSecret: process.env.FACEBOOK_SECRET,
+    !e.FACEBOOK_ID || e.FACEBOOK_ID===""?undefined:Providers.Facebook({
+      clientId: e.FACEBOOK_ID,
+      clientSecret: e.FACEBOOK_SECRET,
     }),
-    process.env.GITHUB_ID===""?undefined:Providers.GitHub({
-      clientId: process.env.GITHUB_ID,
-      clientSecret: process.env.GITHUB_SECRET,
+    !e.GITHUB_ID || e.GITHUB_ID===""?undefined:Providers.GitHub({
+      clientId: e.GITHUB_ID,
+      clientSecret: e.GITHUB_SECRET,
     }),
-    process.env.GOOGLE_ID===""?undefined:Providers.Google({
-      clientId: process.env.GOOGLE_ID,
-      clientSecret: process.env.GOOGLE_SECRET,
+    !e.GOOGLE_ID || e.GOOGLE_ID===""?undefined:Providers.Google({
+      clientId: e.GOOGLE_ID,
+      clientSecret: e.GOOGLE_SECRET,
     }),
-    process.env.TWITTER_ID===""?undefined:Providers.Twitter({
-      clientId: process.env.TWITTER_ID,
-      clientSecret: process.env.TWITTER_SECRET,
+    !e.TWITTER_ID || e.TWITTER_ID===""?undefined:Providers.Twitter({
+      clientId: e.TWITTER_ID,
+      clientSecret: e.TWITTER_SECRET,
     }),
   ].filter( v => undefined?false:v),
   // Database optional. MySQL, Maria DB, Postgres and MongoDB are supported.
@@ -46,15 +48,15 @@ export default NextAuth({
   // Notes:
   // * You must install an appropriate node_module for your database
   // * The Email provider requires a database (OAuth providers do not)
-  database: process.env.DATABASE_URL,
+  database: e.DATABASE_URL,
 
   // The secret should be set to a reasonably long random string.
   // It is used to sign cookies and to sign and encrypt JSON Web Tokens, unless
   // a separate secret is defined explicitly for encrypting the JWT.
-  secret: process.env.SECRET,
+  secret: e.SECRET,
 
   session: {
-    signingKey: process.env.JWT_SIGNING_PRIVATE_KEY,
+    signingKey: e.JWT_SIGNING_PRIVATE_KEY,
     // Use JSON Web Tokens for session instead of database sessions.
     // This option can be used with or without a database for users/accounts.
     // Note: `jwt` is automatically set to `true` if no database is specified.
@@ -74,7 +76,7 @@ export default NextAuth({
   // https://next-auth.js.org/configuration/options#jwt
   jwt: {
     // A secret to use for key generation (you should set this explicitly)
-    secret: process.env.SECRET,
+    secret: e.SECRET,
     // Set to true to use encryption (default: false)
     // encryption: true,
     // You can define your own encode/decode functions for signing and encryption
