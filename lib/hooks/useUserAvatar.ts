@@ -13,7 +13,7 @@ export const useUserAvatar = (name = 'userAvatar') => {
     if (!localStorage.getItem(name)) {
       // bg not set locally, generating one, setting localStorage and context to persist.
       const bg = getRandomPairOfColors()
-      const value = `url('/user.svg')`//linear-gradient(140deg, ${bg[0]}, ${bg[1]} 100%)`
+      const value = '/user.svg'//linear-gradient(140deg, ${bg[0]}, ${bg[1]} 100%)`
       localStorage.setItem(name, value)
       setUserAvatar(value)
     }

@@ -15,7 +15,7 @@ export default function AuthState ({ visible } : AuthStateProps) {
 
   useEffect(() => {
     if(session){
-      setUserAvatar(`url(${session.user.image})`);
+      setUserAvatar(`${session.user.image}`);
       console.log('userAvatar=',userAvatar)
     }
   },[session])

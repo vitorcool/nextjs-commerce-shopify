@@ -8,6 +8,9 @@ const provider = commerce.provider || getProviderName()
 const isBC = provider === 'bigcommerce'
 const isShopify = provider === 'shopify'
 
+
+
+
 module.exports = withCommerceConfig({
   commerce,
   future: {
@@ -17,8 +20,13 @@ module.exports = withCommerceConfig({
     locales: ['en-US', 'es'],
     defaultLocale: 'en-US',
   },
+
   rewrites() {
     return [
+/*       {
+        source: '/:path*',
+        destination: (process.env.NEXTAUTH_URL || "") +'/:path*'
+      }, */
       (isBC || isShopify) && {
         source: '/checkout',
         destination: '/api/bigcommerce/checkout',
@@ -46,6 +54,7 @@ module.exports = withCommerceConfig({
     ].filter((x) => x)
   },
 })
+
 
 // Don't delete this console log, useful to see the commerce config in Vercel deployments
 console.log('next.config.js', JSON.stringify(module.exports, null, 2))

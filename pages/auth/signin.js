@@ -10,7 +10,8 @@ export async function getServerSideProps(context){
   const { req, res, query } = context;
 
 
-  const callbackUrl = query.callbackUrl || req?.headers?.referer;
+  const callbackUrl = query.callbackUrl || false/*  || req?.headers?.referer; */
+
   console.log("xcallbackUrl=",callbackUrl)
   console.log(req?.headers?.referer , query.callbackUrl)
   return {
@@ -52,9 +53,9 @@ export default function SignIn({ csrfToken, providers, callbackUrl, email,...pro
           <p>{error}</p>
         </div>
       )}
-      {Object.values(providers).map(provider => (        
+      {Object.values(providers).map(provider => (
         <div key={provider.name} className={css.logo}>
-          <button className={css.svg+' svg-'+provider.id} 
+          <button className={css.svg+' svg-'+provider.id}
                    onClick={() => signIn(provider.id,{callbackUrl: callbackUrl, redirect: true})}>Sign in with {provider.name}</button>
         </div>
       ))}
