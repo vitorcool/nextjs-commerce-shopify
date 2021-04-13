@@ -70,7 +70,7 @@ const Layout: FC<Props> = ({
           }}
           session={pageProps.session} >
       <CommerceProvider locale={locale}>
-        {/* <AuthState/> */}
+        <AuthState visible={false}/>
         <div className={cn(s.root)}>
           <Navbar />
           <main className="fit">{children}</main>

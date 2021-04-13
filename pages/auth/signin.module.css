@@ -19,5 +19,5 @@
 }
 
 .error{
-  @apply bg-red-600 text-gray-300;
+  @apply bg-red-600 text-gray-300 text-center p-2;  
 }

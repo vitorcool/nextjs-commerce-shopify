@@ -1,7 +1,6 @@
 import { useState, useEffect } from 'react'
-import { providers as oAuthProviders, getCsrfToken } from 'next-auth/client'
+import { signIn, providers as oAuthProviders, getCsrfToken } from 'next-auth/client'
 import css from './AuthProvidersView.module.css'
-
 
 
 export default function AuthProvidersView ({ email = "", error: errorType = false }) {
@@ -10,10 +9,12 @@ export default function AuthProvidersView ({ email = "", error: errorType = fals
   const [cb,setCallbackUrl] = useState()
 
   useEffect(() => {
+    let isSubscribed = true
     setCallbackUrl(window.location.href);
-    getCsrfToken().then( data => setCsrfToken(data) )
-    oAuthProviders().then( data => setProviders(data))
-   // console.log("cb=",cb,"csrf=",csrfToken,"providers=",providers)
+    getCsrfToken().then( data => {if (isSubscribed) setCsrfToken(data) })
+    oAuthProviders().then( data => {if (isSubscribed) setProviders(data)})
+    // console.log("cb=",cb,"csrf=",csrfToken,"providers=",providers)
+    return () => isSubscribed = false
   }, [])
 
   const providersToRender = Object.values(providers).filter(provider => {
@@ -60,8 +61,11 @@ export default function AuthProvidersView ({ email = "", error: errorType = fals
               {cb && <input type='hidden' name='callbackUrl' value={cb} />}
 
               <div key={provider.name}>
-                <button type='submit' className={css.svg+' svg-'+provider.id} 
-                      onClick={() => signIn(provider.id)}>Sign in with {provider.name}</button>
+                <button type='submit' className={css.svg+' svg-'+provider.id}
+                      onClick={(e) => {
+                        e.preventDefault();
+                        signIn(provider.id)
+                        }}>Sign in with {provider.name}</button>
               </div>
               {/* <button type='submit' className='button'>Sign in with {provider.name}</button> */}
             </form>}

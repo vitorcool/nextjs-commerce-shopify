@@ -1,3 +1,4 @@
+
 import { LayoutEmpty } from '@components/common'
 import cn from 'classnames'
 import { providers as authProviders, signIn, getCsrfToken } from 'next-auth/client'
@@ -9,8 +10,9 @@ export async function getServerSideProps(context){
   const { req, res, query } = context;
 
 
-  const callbackUrl = req?.headers?.referer || query;
-
+  const callbackUrl = query.callbackUrl || req?.headers?.referer;
+  console.log("xcallbackUrl=",callbackUrl)
+  console.log(req?.headers?.referer , query.callbackUrl)
   return {
     props:{
       callbackUrl,
@@ -20,8 +22,8 @@ export async function getServerSideProps(context){
 
 }
 
-export default function SignIn({ csrfToken, providers, callbackUrl, email, error: errorType,...props }) {
-
+export default function SignIn({ csrfToken, providers, callbackUrl, email,...props }) {
+  const [error, setError] = useState("")
   const errors = {
       Signin: 'Try signing with a different account.',
       OAuthSignin: 'Try signing with a different account.',
@@ -34,20 +36,26 @@ export default function SignIn({ csrfToken, providers, callbackUrl, email, error
       CredentialsSignin: 'Sign in failed. Check the details you provided are correct.',
       default: 'Unable to sign in.',
     }
-  const error = errorType && (errors[errorType] ?? errors.default)
+
+  useEffect(() => {
+    const errorType = (new URLSearchParams(window.location.search)).get("error");
+    setError(errorType && (errors[errorType] ?? errors.default))
+
+    {console.log('cb='+callbackUrl)}
+  },[])
 
 
   return (
     <div className={css.signin + ' signin'}>
-      {error && (
+      {(error && error.length>0) &&(
         <div className={css.error}>
           <p>{error}</p>
         </div>
       )}
-      {Object.values(providers).map(provider => (
+      {Object.values(providers).map(provider => (        
         <div key={provider.name} className={css.logo}>
           <button className={css.svg+' svg-'+provider.id} 
-                   onClick={() => signIn(provider.id)}>Sign in with {provider.name}</button>
+                   onClick={() => signIn(provider.id,{callbackUrl: callbackUrl, redirect: true})}>Sign in with {provider.name}</button>
         </div>
       ))}
 
