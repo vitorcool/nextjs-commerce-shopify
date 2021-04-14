@@ -9,11 +9,20 @@ import { getConfig } from '@framework/api'
 import getAllProducts from '@framework/product/get-all-products'
 import getSiteInfo from '@framework/common/get-site-info'
 import getAllPages from '@framework/common/get-all-pages'
+import redirectMandatory from '@utils/redirectMandatory'
 
 export async function getServerSideProps({
+  res,req,
   preview,
   locale,
 }: GetServerSidePropsContext) {
+  if(process && redirectMandatory({res,req, mandatoryURL: process.env.NEXTAUTH_URL ?? ""})){
+    return { props:{
+      products:[],
+      categories:[],
+      brands:[],
+      pages:[],}}
+  }
 
   const config = getConfig({ locale })
 
