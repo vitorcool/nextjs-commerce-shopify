@@ -8,9 +8,6 @@ const provider = commerce.provider || getProviderName()
 const isBC = provider === 'bigcommerce'
 const isShopify = provider === 'shopify'
 
-
-
-
 module.exports = withCommerceConfig({
   commerce,
   future: {
@@ -21,12 +18,15 @@ module.exports = withCommerceConfig({
     defaultLocale: 'en-US',
   },
 
+  redirects() {
+    return [
+
+    ].filter((x) => x)
+  },
+
+
   rewrites() {
     return [
-/*       {
-        source: '/:path*',
-        destination: (process.env.NEXTAUTH_URL || "") +'/:path*'
-      }, */
       (isBC || isShopify) && {
         source: '/checkout',
         destination: '/api/bigcommerce/checkout',

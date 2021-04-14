@@ -3,19 +3,18 @@ import { Grid, Marquee, Hero, KeenSlider } from '@components/ui'
 import { ProductCard } from '@components/product'
 import Image, { ImageProps } from 'next/image'
 
-// import HomeAllProductsGrid from '@components/common/HomeAllProductsGrid'
-import type { GetStaticPropsContext, InferGetStaticPropsType } from 'next'
+import type { GetServerSidePropsContext,InferGetServerSidePropsType  } from 'next'
 
 import { getConfig } from '@framework/api'
 import getAllProducts from '@framework/product/get-all-products'
 import getSiteInfo from '@framework/common/get-site-info'
 import getAllPages from '@framework/common/get-all-pages'
 
-
-export async function getStaticProps({
+export async function getServerSideProps({
   preview,
   locale,
-}: GetStaticPropsContext) {
+}: GetServerSidePropsContext) {
+
   const config = getConfig({ locale })
 
   const { products } = await getAllProducts({
@@ -34,7 +33,7 @@ export async function getStaticProps({
       brands,
       pages,
     },
-    revalidate: 14400,
+    //revalidate: 14400,
   }
 }
 
@@ -42,7 +41,7 @@ export default function Home({
   products,
   brands,
   categories,
-}: InferGetStaticPropsType<typeof getStaticProps>) {
+}: InferGetServerSidePropsType<typeof getServerSideProps>) {
   return (
     <>
       <KeenSlider
