@@ -1,6 +1,18 @@
 const getSortVariables = (sort?: string, isCategory = false) => {
   let output = {}
   switch (sort) {
+    case 'title-asc':
+      output = {
+        sortKey: 'TITLE',
+        reverse: false,
+      }
+      break
+    case 'title-desc':
+      output = {
+        sortKey: 'TITLE',
+        reverse: true,
+      }
+      break
     case 'price-asc':
       output = {
         sortKey: 'PRICE',
