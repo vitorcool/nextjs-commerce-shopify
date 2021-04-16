@@ -8,6 +8,7 @@ export const getStaticPaths: GetStaticPaths = async () => {
   // ...
 }
 
+
 export const getServerSideProps: GetServerSideProps = async (context) => {
   return (
     <div>Privacy page</div>
