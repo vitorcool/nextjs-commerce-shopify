@@ -1,5 +1,5 @@
-import { Product } from '@framework/types'
-import getAllProducts, { ProductEdge } from '../../../product/get-all-products'
+import { Product } from '@commerce/types'
+import getAllProducts/* , { ProductEdge } */ from '../../../product/get-all-products'
 import type { ProductsHandlers } from '../products'
 import getSearchVariables from '@framework/utils/get-search-variables'
 
@@ -20,13 +20,14 @@ const getProducts: ProductsHandlers['getProducts'] = async ({
 // Use a dummy base as we only care about the relative path
 
 
-let variables = getSearchVariables({
+let variables:object = Object.assign({},getSearchVariables({
   brandId:brand,
   search,
   categoryId:category,
   sort
-})
-variables.first= LIMIT
+}),
+  { first: LIMIT })
+
 
 /*
 const url = new URL('/v3/catalog/products', 'http://a')
@@ -80,9 +81,9 @@ url.searchParams.set('is_visible', 'true')
   const found = entityIds.length > 0
   // Put the products in an object that we can use to get them by id
   const productsById = graphqlData.products.reduce<{
-    [k: number]: Product
+    [k: string]: Product
   }>((prods, p) => {
-    prods[p.id] = p
+    prods[p.id as string || "undefined"] = p
     return prods
   }, {})
 
